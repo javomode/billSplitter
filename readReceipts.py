@@ -10,16 +10,9 @@ IDEA:
     6. Display and contain the results.
 '''
 import pytesseract
-import argparse
-import imutils
 import cv2
-import re
+
+image = cv2.imread('3UC3LAG60J49.jpg')
 
 
-# construct the argument parser and parse the arguments
-ap = argparse.ArgumentParser()
-ap.add_argument("-i", "--image", required=True,
-	help="testingReceipts/data/test/3UC3LAG60J49.JPG")
-ap.add_argument("-d", "--debug", type=int, default=-1,
-	help="whether or not we are visualizing each step of the pipeline")
-args = vars(ap.parse_args())
+
