@@ -1,0 +1,60 @@
+.parent {
+  border: 1px solid black;
+  margin: 1rem;
+  padding: 2rem 2rem;
+  text-align: center;
+}
+.child {
+  display: inline-block;
+  border: 1px solid red;
+  padding: 1rem 1rem;
+  vertical-align: middle;
+}
+
+.container {
+            display: flex;
+            flex-direction: row;  /* Side-by-side layout */
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 20px;
+        }
+
+/* Chart Section (Locked to the left) */
+#chart-section {
+    flex: 1;  /* Takes up equal space */
+    max-width: 75%;  /* Restrict width */
+}
+
+/* List Section (Locked to the right) */
+#list-section {
+    flex: 2;
+    max-width: 100%;  /* Restrict width */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-left: 1px solid #ccc;
+    text-items: left;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;  /* Optional: to remove default margin */
+}
+
+li {
+    display: flex;              /* Use flexbox for list items */
+    justify-content: space-between; /* Space between item name and price */
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Optional: To ensure consistent formatting for item names */
+.item-name {
+    flex: 1;                   /* Take up available space */
+    text-align: left;
+}
+
+.item-price {
+    margin-left: 10px;        /* Add space between item name and price */
+    white-space: nowrap;      /* Prevent wrapping of the price */
+}

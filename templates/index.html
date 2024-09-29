@@ -1,5 +1,64 @@
 {% extends 'template.html' %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+
+ <script>
+    // JavaScript to render the pie chart
+    fetch('/chart-data')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('myPieChart').getContext('2d');
+            const myPieChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: data.labels,  // Now this will be ['Chicken', 'Apples', 'Carrots', 'Dinner Rolls']
+                    datasets: [{
+                        data: data.values,  // This will be [12, 6, 8, 9]
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        datalabels: {
+                            formatter: (value, context) => {
+                                return '$' + value;  // Format the label to display the cost
+                            },
+                            color: '#ffffff',  // Change text color to white for visibility
+                            anchor: 'end',  // Positioning of the label
+                            align: 'end',
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels],  // Include the data labels plugin
+            });
+        })
+        .catch(error => console.error('Error fetching chart data:', error));
+</script>
+
+
 <h1>Split Your Bills!</h1>
+<div class='parent'>
+    <div class='child'>
+        <canvas id="myPieChart" width="400" height="400"> pie chart</canvas>
+    </div>
+    <div class="child">
+        <div id="list-section">
+            <h2>Expenses List</h2>
+            <ul>
+        {% for item, price in items.items() %}
+            <li>
+                <span class="item-name">{{ item }}</span>
+                <span class="item-price">${{ price }}</span>
+            </li>
+        {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}
