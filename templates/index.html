@@ -1,10 +1,34 @@
 {% extends 'template.html' %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
+
+<div class='parent'>
+    <div class='child'>
+        <canvas id="myPieChart" width="400" height="400"> pie chart</canvas>
+    </div>
+    <div class="child">
+        <div id="list-section">
+            {% if items | length == 0 %}
+            <h6>Items, Total: $0</h6>
+            {% else %}
+            <h6>Items, Total: ${{ items.values() | sum }}</h6>
+            {% endif %}
+            <ul>
+                {% for item, price in items.items() %}
+                <li>
+                    <span class="item-name">{{ item }}</span>
+                    <span class="item-price">${{ price }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
- <script>
+<script>
     // JavaScript to render the pie chart
     fetch('/chart-data')
         .then(response => response.json())
@@ -40,25 +64,4 @@
         })
         .catch(error => console.error('Error fetching chart data:', error));
 </script>
-
-
-<h1>Split Your Bills!</h1>
-<div class='parent'>
-    <div class='child'>
-        <canvas id="myPieChart" width="400" height="400"> pie chart</canvas>
-    </div>
-    <div class="child">
-        <div id="list-section">
-            <h2>Expenses List</h2>
-            <ul>
-        {% for item, price in items.items() %}
-            <li>
-                <span class="item-name">{{ item }}</span>
-                <span class="item-price">${{ price }}</span>
-            </li>
-        {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
 {% endblock %}
